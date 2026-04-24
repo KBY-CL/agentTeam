@@ -1,0 +1,246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Team Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agent_team_version",
+    "mode",
+    "last_updated",
+    "source_design",
+    "last_approved",
+    "last_implementation_log",
+    "security_profiles",
+    "agents",
+    "skills",
+    "hooks",
+    "files",
+    "last_validation"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "agent_team_version": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "subagent-orchestration",
+        "experimental-agent-teams"
+      ]
+    },
+    "last_updated": {
+      "type": "string"
+    },
+    "source_design": {
+      "type": "string"
+    },
+    "last_approved": {
+      "type": "string"
+    },
+    "last_implementation_log": {
+      "type": "string"
+    },
+    "security_profiles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "file",
+          "model",
+          "tools",
+          "risk_level",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "disabled",
+              "experimental"
+            ]
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "file",
+          "preload"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          },
+          "preload": {
+            "type": "boolean"
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          }
+        }
+      }
+    },
+    "hooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "file"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "disabled",
+              "experimental"
+            ]
+          }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "type",
+          "sha256",
+          "line_count"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "agent",
+              "skill",
+              "hook",
+              "config",
+              "doc"
+            ]
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "line_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "last_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "static_smoke",
+        "workflow_simulation"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL",
+            "CRITICAL"
+          ]
+        },
+        "static_smoke": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL",
+            "CRITICAL"
+          ]
+        },
+        "workflow_simulation": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL",
+            "CRITICAL",
+            "SKIP",
+            "NOT_RUN"
+          ]
+        }
+      }
+    }
+  }
+}

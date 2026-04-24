@@ -1,0 +1,63 @@
+# Drift Detection Policy
+
+## Purpose
+
+Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성을 점검합니다.
+생성 직후 검증이 아니라 운영 중 변화가 설계를 무너뜨렸는지 확인하는 절차입니다.
+
+## Comparison Inputs
+
+- `.agent-team/registry.json`
+- 최신 설계서 `.agent-team/03_agent_design_spec_v*.md`
+- 최신 승인 / 구현 로그
+- 실제 `.claude/agents/*.md`
+- 실제 `.claude/skills/**`
+- 실제 `.claude/settings.json`
+- 필요 시 `CLAUDE.md`, `AGENTS.md`, `docs/tool-inventory.md`
+
+## Drift Checks
+
+- model alias / 실제 model ID 불일치
+- tools 목록 변경
+- forbidden 누락
+- 설계서에 없는 agent 추가 또는 기존 agent 삭제
+- `shared-rules.md` 와 보안 프로필 불일치
+- doc-updater 호출 조건 약화 / 삭제
+- settings hooks 변경
+- registry hash / line_count 와 실제 파일 불일치
+
+## Severity
+
+### INFO
+- 설명 문구 변경
+- comment 변경
+
+### WARN
+- line count 증가
+- description trigger 변경
+- doc-updater 호출 조건 약화
+
+### FAIL
+- 설계서에 없는 agent 추가
+- 설계서에 있는 agent 삭제
+- tools 권한 변경
+- forbidden 누락
+- model 변경
+
+### CRITICAL
+- Bash / Write / Edit 권한 무단 추가
+- 외부 MCP write / delete 권한 추가
+- security hook 삭제
+- apply / deploy / DB 변경 가능성 추가
+
+## Audit Overall Mapping
+
+- 하나라도 `CRITICAL` 이 있으면 Overall = `CRITICAL`
+- `CRITICAL` 이 없고 `FAIL` 이 있으면 Overall = `FAIL`
+- `FAIL` 이 없고 `WARN` 이 있으면 Overall = `WARN`
+- 그 외는 `PASS`
+
+## Output Usage
+
+Drift findings는 Audit Report의 Findings 표에 들어갑니다.
+Update Mode에서는 drift severity가 높을수록 Major scope 또는 Generate 재실행 제안 근거로 사용합니다.
