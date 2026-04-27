@@ -30,6 +30,7 @@
 | policies/update-safety.md | Step 5 (Update Mode) |
 | policies/audit-mode.md | Step 8 |
 | policies/security-profiles.md | Step 3 |
+| policies/tdd-first.md | Step 1, Step 3, Step 4, Step 5, Step 6 |
 | policies/file-protection.md | Step 5 |
 | policies/approval-and-revalidation.md | Step 4.5 |
 

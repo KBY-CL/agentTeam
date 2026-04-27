@@ -6,7 +6,8 @@ subagent_type: general-purpose / model: opus
 1. .agent-team/01_project_analysis.md
 2. .agent-team/02_interview_result.md
 3. references/policies/security-profiles.md (이 단계에서 함께 로드)
-[재호출 시] 4. .agent-team/04_validation_feedback_{N-1}.md
+4. references/policies/tdd-first.md (이 단계에서 함께 로드)
+[재호출 시] 5. .agent-team/04_validation_feedback_{N-1}.md
 
 agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면 해당 섹션만 부분 Read.
 
@@ -16,6 +17,10 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - 모델은 alias로 작성: opus / sonnet / haiku
 - skills: frontmatter에는 반드시 필요한 소형 스킬만 포함 (대형 스킬 preload 금지)
 - doc-updater는 에이전트 frontmatter의 skills:에 넣지 않음. 구현 에이전트 본문에 "기능 개발 완료 후 doc-updater 스킬을 호출한다"고 명시
+- Project-Aware TDD-first를 기본 개발 흐름으로 설계
+- production code 수정은 실패 테스트 작성과 Red 검증 `[PASS]` 이후에만 허용
+- 기존 테스트 프레임워크·파일 위치·fixture/mock 방식·CI 명령을 우선 사용
+- 테스트 인프라가 없으면 신규 도입을 사용자 승인 대상으로 표시
 
 ## 필수 포함 에이전트
 **Request Intake Agent** (.claude/agents/request-intake-agent.md)
@@ -54,6 +59,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 ## 공통 구성요소
 - 공통 Tools / Hooks
 - 공통 보안 규칙 표
+- Project-Aware TDD Gate: Acceptance Criteria → Test Strategy → Failing Test → Red Verification → Minimal Implementation → Green Verification → Refactor → Regression/Security Verification → Documentation Update
 
 ## doc-updater 위치 규칙 (반드시 준수)
 - ✅ .claude/skills/_common/doc-updater/SKILL.md 파일로 존재 (공통 스킬 파일)
@@ -63,6 +69,13 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 ## 개별 구성요소 (에이전트별 전용)
 
 ## Handoff 구조
+
+## TDD-first 설계
+- Test Environment Profile 요약: 01_project_analysis.md 기반
+- 개발 요청의 기본 흐름: Request Intake → 테스트 책임자 → Red Verifier → Implementation Agent → Green Verifier → Refactor/Quality Review → doc-updater
+- Red gate: 실패 테스트가 기능 미구현 때문에 실패해야 하며, 설정·fixture·import 오류는 FAIL
+- Green gate: 프로젝트의 실제 test/CI command 기준으로 검증
+- 테스트 인프라 부재 시: 사용자 승인 전 dependency/config/CI 변경 금지
 
 ## 추가 근거 매트릭스 (필수)
 

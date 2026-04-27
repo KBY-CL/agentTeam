@@ -28,11 +28,13 @@ Audit Mode는 source/config 파일에 대한 no-write를 보장합니다.
 
 - `.agent-team/registry.json`
 - `.claude/agents/*.md`
+- `.claude/skills/_common/tdd-workflow/SKILL.md`
+- `.claude/agents/_common/shared-rules.md`
 - `.claude/settings.json`
 - `CLAUDE.md`
 - `AGENTS.md`
 
-필요 시 `docs/tool-inventory.md`, `.claude/skills/**`, `_common/shared-rules.md` 를 추가로 포함합니다.
+필요 시 `docs/tool-inventory.md`, `.claude/skills/**` 를 추가로 포함합니다.
 
 ## Audit Report Format
 

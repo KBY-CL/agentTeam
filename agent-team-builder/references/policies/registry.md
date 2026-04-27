@@ -26,6 +26,10 @@ registry는 다음 실행의 시작점이 되는 운영 상태 파일입니다.
 - `files`
 - `last_validation`
 
+## Optional Top-Level Fields
+
+- `development_methodology`: Project-Aware TDD-first 등 개발 방법론 상태
+
 ## Phase 1 Risk Level Rule
 
 - `agents[].risk_level` 은 1차부터 필수

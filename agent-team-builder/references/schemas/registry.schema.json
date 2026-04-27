@@ -50,6 +50,31 @@
         "type": "string"
       }
     },
+    "development_methodology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "tdd_gate"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "project-aware-tdd"
+          ]
+        },
+        "tdd_gate": {
+          "type": "string",
+          "enum": [
+            "required"
+          ]
+        },
+        "test_environment_profile": {
+          "type": "string"
+        }
+      }
+    },
     "agents": {
       "type": "array",
       "items": {

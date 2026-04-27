@@ -8,6 +8,7 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 1. .agent-team/03_agent_design_spec_v{N}.md
 2. .agent-team/02_interview_result.md
 3. references/checklists/context-budget.md (이 단계에서 함께 로드)
+4. references/policies/tdd-first.md (이 단계에서 함께 로드)
 
 ## 체크리스트
 
@@ -29,6 +30,14 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 
 **[인터뷰 반영]**
 □ Q1·Q3·Q5 반영 / Q6(자동화 금지) → forbidden 반영
+
+**[Project-Aware TDD]**
+□ 01_project_analysis.md의 Test Environment Profile이 설계에 반영됨
+□ 개발 요청 흐름에 Acceptance Criteria → Failing Test → Red Verification → Minimal Implementation → Green Verification 순서가 있음
+□ Implementation Agent가 Red Verifier `[PASS]` 없이 production code를 수정하지 못하도록 명시됨
+□ Red 실패 원인이 기능 미구현인지 검증하는 조건이 있음
+□ Green 검증이 프로젝트의 실제 test/CI command 기준으로 연결됨
+□ 새 테스트 프레임워크·테스트 구조·CI 변경은 사용자 승인 대상으로 표시됨
 
 **[근거 매트릭스]**
 □ 추가 근거 매트릭스 섹션 존재

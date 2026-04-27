@@ -23,6 +23,8 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - 설계서에 없는 agent 추가 또는 기존 agent 삭제
 - `shared-rules.md` 와 보안 프로필 불일치
 - doc-updater 호출 조건 약화 / 삭제
+- tdd-workflow 누락 또는 Red/Green gate 약화 / 삭제
+- Implementation Agent의 Red Verifier 승인 조건 삭제
 - settings hooks 변경
 - registry hash / line_count 와 실제 파일 불일치
 
@@ -36,6 +38,7 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - line count 증가
 - description trigger 변경
 - doc-updater 호출 조건 약화
+- tdd-workflow 호출 조건 약화
 
 ### FAIL
 - 설계서에 없는 agent 추가
@@ -43,12 +46,14 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - tools 권한 변경
 - forbidden 누락
 - model 변경
+- Red 검증 전 production code 수정 금지 규칙 삭제
 
 ### CRITICAL
 - Bash / Write / Edit 권한 무단 추가
 - 외부 MCP write / delete 권한 추가
 - security hook 삭제
 - apply / deploy / DB 변경 가능성 추가
+- 테스트 인프라 또는 CI 변경을 사용자 승인 없이 허용하는 흐름 추가
 
 ## Audit Overall Mapping
 

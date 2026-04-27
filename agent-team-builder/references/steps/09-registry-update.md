@@ -12,10 +12,11 @@ Generate / Update가 성공적으로 끝난 뒤 메인 Claude가 수행합니다
 1. 실제 `.claude/agents/*.md`, `.claude/skills/**`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `docs/tool-inventory.md` 상태 수집
 2. hash policy 대상 파일에 대해 `sha256` 과 `line_count` 계산
 3. `registry.json` top-level fields 채우기
-4. `last_validation` 에 Step 7A / Step 7B 결과 반영
-5. schema validation 수행
-6. 유효한 경우 `.agent-team/registry.json` 저장
-7. `.agent-team/09_registry_update.md` 에 갱신 요약 기록
+4. Project-Aware TDD-first가 적용된 경우 `development_methodology` 필드에 반영
+5. `last_validation` 에 Step 7A / Step 7B 결과 반영
+6. schema validation 수행
+7. 유효한 경우 `.agent-team/registry.json` 저장
+8. `.agent-team/09_registry_update.md` 에 갱신 요약 기록
 
 ## 규칙
 

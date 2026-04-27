@@ -13,10 +13,13 @@ B) AWS·GCP·Azure 조회 필요
 C) Jira·Notion·Slack 연동 필요
 D) 외부 시스템 연동 불필요
 
-Q8. 검증 기준 (Q2에 A·B·C 포함 시)
-A) 린트·타입체크 중심   B) 단위 테스트 필수
-C) 통합 테스트 필수     D) 보안 리뷰 필수
+Q8. TDD 검증 기준 (Q2에 A·B·C 포함 시)
+A) 기존 테스트 명령 기준 Red/Green 필수
+B) 단위 테스트 필수
+C) 통합 테스트 필수
+D) 보안 리뷰 필수
 E) 성능·부하 테스트 필요
+F) 테스트 인프라가 없으면 최소 도입안 승인 후 진행
 
 Q9. 문서화 범위 (Q1에 D 포함 시)
 A) CLAUDE.md만   B) AGENTS.md + CLAUDE.md

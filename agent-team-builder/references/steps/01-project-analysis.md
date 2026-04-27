@@ -38,6 +38,15 @@ subagent_type: Explore / model: sonnet
 ## 코드 컨벤션
 린터·포맷터 / 네이밍 / 테스트 프레임워크
 
+## Test Environment Profile
+- 테스트 프레임워크: pytest / jest / vitest / junit / go test / 기타 / 없음
+- 테스트 파일 위치: tests/ / __tests__/ / *.spec.* / *.test.* / 기타
+- 테스트 실행 명령: package script / make target / CI command / 미확인
+- 테스트 레벨: unit / integration / e2e 구분 방식
+- mock·fixture·factory·test database 사용 방식
+- coverage 또는 CI gate 여부
+- 테스트 인프라 부재 시: 신규 도입 필요성과 사용자 승인 필요 여부
+
 ## 디렉토리 구조 (depth 3, 핵심만)
 
 ## CI/CD

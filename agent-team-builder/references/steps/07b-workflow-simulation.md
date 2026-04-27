@@ -14,11 +14,16 @@ subagent_type: general-purpose / model: opus
 
 ### Case 1. 신규 API 엔드포인트 추가
 요청: "새 사용자 조회 API 엔드포인트를 추가해줘."
-기대 흐름: request-intake-agent → implementer → verifier → doc-updater
+기대 흐름: request-intake-agent → 테스트 책임자 → red verifier → implementer → green verifier → refactor/quality review → doc-updater
 
 검증:
 □ request-intake-agent의 트리거 조건이 이 요청에 맞는가
-□ implementer가 코드 변경을 담당하는가
+□ Acceptance Criteria와 테스트 범위가 handoff에 기록되는가
+□ 기존 프로젝트 테스트 관례를 먼저 확인하는가
+□ 실패 테스트 작성 후 Red Verification이 구현보다 먼저 실행되는가
+□ Red 실패 원인이 기능 미구현인지 확인하는가
+□ implementer가 Red Verifier `[PASS]` 이후 코드 변경을 담당하는가
+□ Green Verification이 실제 test/CI command 기준으로 실행되는가
 □ verifier가 테스트·보안 검토를 담당하는가
 □ doc-updater 호출 조건이 구현 에이전트 본문에 명시되어 있는가
 □ handoff 경로가 각 에이전트 description에 연결되는가

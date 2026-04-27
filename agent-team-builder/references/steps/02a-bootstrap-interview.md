@@ -53,5 +53,10 @@ Q6: {값}  Q7: {값}  Q8: {값}  Q9: {값}
 
 ## 설계서 반영 지침
 (선택 결과 → 설계에 반영할 사항 정리)
+
+## TDD 정책
+- 기본값: Project-Aware TDD-first
+- 01_project_analysis.md의 Test Environment Profile 기준으로 적용
+- 테스트 인프라 신규 도입이 필요하면 사용자 승인 대상으로 표시
 ---
 ```
