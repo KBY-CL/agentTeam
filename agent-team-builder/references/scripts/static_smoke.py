@@ -194,6 +194,7 @@ for path in sorted(AGENTS_DIR.rglob("*.md")):
 for rel_path, base_dir in [
     ("request-intake-agent.md", AGENTS_DIR),
     ("_common/terminal-choice/SKILL.md", SKILLS_DIR),
+    ("_common/tasklist-handoff/SKILL.md", SKILLS_DIR),
     ("_common/tdd-workflow/SKILL.md", SKILLS_DIR),
     ("_common/doc-updater/SKILL.md", SKILLS_DIR),
     ("_common/handoff-writer/SKILL.md", SKILLS_DIR),

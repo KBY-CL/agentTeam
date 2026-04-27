@@ -29,6 +29,7 @@ Python이 없으면:
 - required files 존재 여부
   - request-intake-agent.md
   - terminal-choice/SKILL.md
+  - tasklist-handoff/SKILL.md
   - tdd-workflow/SKILL.md
   - doc-updater/SKILL.md
   - handoff-writer/SKILL.md

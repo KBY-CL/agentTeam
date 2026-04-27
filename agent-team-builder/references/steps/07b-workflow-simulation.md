@@ -10,17 +10,22 @@ subagent_type: general-purpose / model: opus
 - handoff 흐름 변경
 - agent trigger condition 변경
 - 사용자 인터랙션 방식 변경
+- tasklist handoff 방식 변경
 
 ## 3개 시나리오
 
 ### Case 1. 신규 API 엔드포인트 추가
 요청: "새 사용자 조회 API 엔드포인트를 추가해줘."
-기대 흐름: request-intake-agent → 테스트 책임자 → red verifier → implementer → green verifier → refactor/quality review → doc-updater
+기대 흐름: request-intake-agent → feature-architect-agent(tasklist 생성) → 테스트 책임자 → tasklist verification/red verifier → implementer(tasklist 실행) → green verifier → refactor/quality review → doc-updater
 
 검증:
 □ request-intake-agent의 트리거 조건이 이 요청에 맞는가
 □ request-intake-agent가 선택형 질문을 terminal-choice(방향키/Space/Enter)로 받는가
 □ feature-architect-agent가 포함된 설계라면 기능 설계 산출물 파일명 선호를 묻거나 추천 파일명을 제시하는가
+□ feature-architect-agent가 implementation tasklist를 생성하는가
+□ tasklist에 owner, depends_on, files, done_when, test command가 포함되는가
+□ implementation-agent가 승인된 tasklist 없이 production code를 수정하지 않는가
+□ implementation-agent가 전체 설계서/긴 로그 대신 tasklist 중심 입력을 받는가
 □ Acceptance Criteria와 테스트 범위가 handoff에 기록되는가
 □ 기존 프로젝트 테스트 관례를 먼저 확인하는가
 □ 실패 테스트 작성 후 Red Verification이 구현보다 먼저 실행되는가

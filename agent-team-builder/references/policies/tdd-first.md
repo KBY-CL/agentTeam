@@ -49,6 +49,7 @@ Request Intake
 - Test Strategy 또는 Test Writer 책임자는 기존 프로젝트 관례에 맞는 실패 테스트를 먼저 작성합니다.
 - Red Verifier는 새 테스트가 실패하는지와 실패 이유가 올바른지 확인합니다.
 - Implementation Agent는 Red Verifier의 `[PASS]` 없이는 production code를 수정하지 않습니다.
+- Implementation Agent는 승인된 implementation tasklist 없이는 production code를 수정하지 않습니다.
 - Implementation Agent는 테스트를 통과시키는 최소 변경만 수행합니다.
 - Green Verifier는 관련 테스트와 필요한 회귀 테스트를 실행합니다.
 - Refactor는 Green 이후에만 수행하며, refactor 이후 관련 테스트를 다시 실행합니다.

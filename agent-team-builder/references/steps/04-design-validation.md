@@ -10,6 +10,7 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 3. references/checklists/context-budget.md (이 단계에서 함께 로드)
 4. references/policies/tdd-first.md (이 단계에서 함께 로드)
 5. references/policies/terminal-interaction.md (이 단계에서 함께 로드)
+6. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
 
 ## 체크리스트
 
@@ -50,6 +51,14 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 □ 기능 설계 책임 agent가 있으면 이름이 `feature-architect-agent`로 명확히 구분됨
 □ 기능 설계 에이전트가 agent team topology/config를 직접 변경하지 못하도록 금지 범위가 있음
 □ 신규 기능 설계 산출물 작성 전 파일명 선호를 묻거나 추천 파일명으로 확인하는 규칙이 있음
+□ 기능 설계 에이전트가 implementation tasklist 생성 책임을 가짐
+
+**[Tasklist Handoff]**
+□ implementation tasklist 생성자, 검토자, 소비자가 명확히 구분됨
+□ tasklist 승인 전 implementation-agent가 production code를 수정하지 못하도록 명시됨
+□ implementation-agent의 기본 입력이 승인된 tasklist 중심으로 제한됨
+□ tasklist에 owner, depends_on, files, done_when, test command가 포함되도록 설계됨
+□ tasklist 밖 파일 수정/순서 변경/범위 확장이 verifier 또는 사용자 승인 대상으로 표시됨
 
 **[근거 매트릭스]**
 □ 추가 근거 매트릭스 섹션 존재

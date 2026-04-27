@@ -30,6 +30,7 @@ Audit Mode는 source/config 파일에 대한 no-write를 보장합니다.
 - `.claude/agents/*.md`
 - `.claude/skills/_common/terminal-choice/SKILL.md`
 - `.agent-team/tools/terminal_select.py`
+- `.claude/skills/_common/tasklist-handoff/SKILL.md`
 - `.claude/skills/_common/tdd-workflow/SKILL.md`
 - `.claude/agents/_common/shared-rules.md`
 - `.claude/settings.json`

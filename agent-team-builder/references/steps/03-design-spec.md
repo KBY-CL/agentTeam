@@ -8,7 +8,8 @@ subagent_type: general-purpose / model: opus
 3. references/policies/security-profiles.md (이 단계에서 함께 로드)
 4. references/policies/tdd-first.md (이 단계에서 함께 로드)
 5. references/policies/terminal-interaction.md (이 단계에서 함께 로드)
-[재호출 시] 6. .agent-team/04_validation_feedback_{N-1}.md
+6. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
+[재호출 시] 7. .agent-team/04_validation_feedback_{N-1}.md
 
 agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면 해당 섹션만 부분 Read.
 
@@ -26,6 +27,8 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - 기능 설계 에이전트는 신규 기능 설계 산출 파일을 만들기 전에 파일명 선호를 사용자에게 묻거나 추천 파일명을 제시해 확정해야 함
 - 모든 선택형 사용자 질문은 terminal-choice 방식(방향키 + Enter, 복수 선택은 Space 토글)을 사용하도록 설계
 - "A/B/C를 타이핑하세요", "쉼표로 입력하세요"를 기본 인터뷰 방식으로 설계하지 않음
+- 기능 설계 에이전트가 implementation tasklist를 만들고, 검증 에이전트 승인 후 implementation-agent에 전달하도록 설계
+- implementation-agent는 승인된 tasklist를 기본 입력으로 받고, 전체 설계서/인터뷰/긴 검증 로그를 기본 입력으로 받지 않음
 
 ## 필수 포함 에이전트
 **Request Intake Agent** (.claude/agents/request-intake-agent.md)
@@ -59,10 +62,13 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 
 ### Feature Architect Agent (해당 시)
 - 이름: `feature-architect-agent` / 한글 호칭: 기능 설계 에이전트
-- 역할: 신규 기능, API, DB, 테스트 전략, 구현 계획 설계
+- 역할: 신규 기능, API, DB, 테스트 전략, 구현 계획 설계 + implementation tasklist 작성
 - 금지: agent team topology, `.claude/agents`, `.claude/skills`, hooks, registry 직접 변경
 - 파일명 확인 규칙: 신규 설계 산출물 작성 전 사용자에게 선호 파일명을 묻거나 추천 파일명 1~3개를 제시하고 확정 후 생성
 - 추천 파일명 패턴: `.agent-team/feature_design_{slug}_{timestamp}.md`, `.claude/handoff/feature_design_{slug}_{timestamp}.md`, `docs/design/{slug}.md`
+- tasklist 출력: `.agent-team/tasklist_{slug}_{timestamp}.md` 또는 `.claude/handoff/tasklist_{slug}_{timestamp}.md`
+- tasklist에는 Source, Global Rules, Tasks(owner/depends_on/files/done_when), Test Commands, 승인 상태 포함
+- production code 수정 task는 Red PASS에 의존해야 함
 
 ### Request Intake Agent (필수)
 - 역할: 개발 요청 접수 및 요구사항 구체화
@@ -75,6 +81,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - 공통 보안 규칙 표
 - Project-Aware TDD Gate: Acceptance Criteria → Test Strategy → Failing Test → Red Verification → Minimal Implementation → Green Verification → Refactor → Regression/Security Verification → Documentation Update
 - Terminal Interaction: 선택형 질문은 `.claude/skills/_common/terminal-choice/SKILL.md` 또는 `.agent-team/tools/terminal_select.py` 사용
+- Tasklist Handoff: `feature-architect-agent`가 tasklist 작성, verifier 승인, `implementation-agent`는 승인된 tasklist만 실행
 
 ## doc-updater 위치 규칙 (반드시 준수)
 - ✅ .claude/skills/_common/doc-updater/SKILL.md 파일로 존재 (공통 스킬 파일)
@@ -96,6 +103,14 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - 단일 선택은 방향키 + Enter, 복수 선택은 방향키 + Space + Enter를 사용한다.
 - 자유 입력은 "기타" 선택 후 보충 설명처럼 선택지로 표현할 수 없는 경우에만 허용한다.
 - 비대화형 환경에서는 fallback을 사용하고 산출물에 사유를 기록한다.
+
+## Tasklist Handoff 설계
+- 기능 설계 에이전트는 기능 설계와 테스트 전략을 바탕으로 implementation tasklist를 작성한다.
+- tasklist 검토자는 test strategy/red verifier/quality verifier 중 설계된 역할에 맞게 지정한다.
+- tasklist 승인 전 implementation-agent는 production code를 수정하지 않는다.
+- implementation-agent의 기본 입력은 승인된 tasklist, 필요한 handoff 요약, 수정 대상 파일 목록, 테스트 명령으로 제한한다.
+- implementation-agent가 전체 설계서나 긴 로그를 읽어야 하면 tasklist에 그 이유와 필요한 섹션을 명시한다.
+- tasklist에 없는 파일 수정, task 순서 변경, 범위 확장은 verifier 또는 사용자 승인 없이는 금지한다.
 
 ## TDD-first 설계
 - Test Environment Profile 요약: 01_project_analysis.md 기반
