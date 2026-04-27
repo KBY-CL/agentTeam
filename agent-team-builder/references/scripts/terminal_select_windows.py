@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import traceback
 from pathlib import Path
 
 
@@ -73,15 +74,28 @@ def main() -> int:
         out_path.unlink()
 
     child_args = build_child_args(args, out_path)
-    cmdline = subprocess.list2cmdline(child_args)
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"
 
-    process = subprocess.Popen(
-        ["cmd.exe", "/c", f"chcp 65001>nul && {cmdline}"],
-        creationflags=subprocess.CREATE_NEW_CONSOLE,
-        env=env,
-    )
+    try:
+        process = subprocess.Popen(
+            child_args,
+            creationflags=subprocess.CREATE_NEW_CONSOLE,
+            env=env,
+            cwd=str(Path.cwd()),
+        )
+    except Exception as exc:
+        print(
+            json.dumps(
+                {
+                    "status": "LAUNCH_FAILED",
+                    "reason": str(exc),
+                    "traceback": traceback.format_exc(),
+                },
+                ensure_ascii=False,
+            )
+        )
+        return 4
 
     deadline = time.monotonic() + args.timeout
     while time.monotonic() < deadline:
@@ -103,6 +117,7 @@ def main() -> int:
             {
                 "status": "NO_SELECTION",
                 "reason": "selection window closed or timed out before writing a result",
+                "child_exit_code": process.poll(),
                 "out": str(out_path),
             },
             ensure_ascii=False,

@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import sys
+import traceback
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -16,6 +17,15 @@ try:
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 except AttributeError:
     pass
+
+if os.name == "nt":
+    try:
+        import ctypes
+
+        ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+        ctypes.windll.kernel32.SetConsoleCP(65001)
+    except Exception:
+        pass
 
 
 @dataclass
@@ -161,7 +171,7 @@ def interactive_required(question: str, options: list[Option], multi: bool) -> d
     }
 
 
-def main() -> int:
+def run() -> int:
     parser = argparse.ArgumentParser(description="Arrow-key selection UI for agent interviews.")
     parser.add_argument("--question", required=True)
     parser.add_argument("--option", action="append", required=True, help="value=label")
@@ -220,6 +230,21 @@ def main() -> int:
         print("\nSelection saved. Press Enter to close this window.")
         input()
     return 0
+
+
+def main() -> int:
+    pause = "--pause-on-complete" in sys.argv
+    try:
+        return run()
+    except KeyboardInterrupt:
+        print("\nSelection cancelled.")
+        return 130
+    except Exception:
+        traceback.print_exc()
+        if pause and supports_interactive():
+            print("\nSelection failed. Press Enter to close this window.")
+            input()
+        return 1
 
 
 if __name__ == "__main__":
