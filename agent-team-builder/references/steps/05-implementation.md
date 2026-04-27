@@ -67,7 +67,9 @@ Tasklist Handoff 공통 규칙 포함: 구현은 승인된 tasklist 중심으로
 - 선택형 질문은 `.agent-team/tools/terminal_select.py`로 실행
 - 단일 선택: 방향키 이동 + Enter 확정
 - 복수 선택: 방향키 이동 + Space 토글 + Enter 확정
-- 실행 불가 환경에서만 번호 입력 fallback 허용
+- 비대화형 셸에서 실행 불가 시 `INTERACTIVE_REQUIRED`를 반환하고 입력을 기다리지 않음
+- `INTERACTIVE_REQUIRED`가 나오면 agent가 options를 사용자에게 보여주고 채팅 응답 또는 실제 TTY 재실행을 요청
+- 번호 입력 fallback은 사용자가 명시적으로 허용한 경우에만 `--fallback-mode prompt`로 실행
 - 선택 결과 value + label + fallback 여부를 handoff에 기록
 
 **.claude/skills/_common/tdd-workflow/SKILL.md** (필수)

@@ -17,6 +17,8 @@ python references/scripts/terminal_select.py --multi --json \
   --option "F=기타"
 ```
 
+비대화형 셸에서 `INTERACTIVE_REQUIRED`가 반환되면 `input()` fallback을 실행하지 말고, 반환된 options를 사용자에게 보여주고 채팅 응답 또는 실제 TTY 재실행을 요청하세요.
+
 ```
 Q1. 에이전트 팀의 주요 목적 (복수 선택 가능)
 A) 신규 기능 개발 지원   B) 코드 품질 관리
@@ -61,7 +63,8 @@ Q1: {선택 value + label}  Q2: {선택 value + label}  Q3: {선택 value + labe
 
 ## 인터랙션 방식
 - terminal_select.py 사용 여부: yes/no
-- fallback 사용 시 사유:
+- status: OK / INTERACTIVE_REQUIRED / FALLBACK_PROMPT / DEFAULTED
+- fallback 또는 default 사용 시 사유:
 
 ## 2B 추가 답변 (해당 시)
 Q6: {값}  Q7: {값}  Q8: {값}  Q9: {값}

@@ -63,6 +63,8 @@ subagent_type: general-purpose / model: opus
 □ 선택형 질문이 방향키 + Enter 방식으로 안내됨
 □ 복수 선택 질문이 Space 토글 + Enter 방식으로 안내됨
 □ A/B/C 직접 타이핑 또는 쉼표 입력이 기본 방식으로 남아 있지 않음
+□ 비대화형 셸에서 `INTERACTIVE_REQUIRED`를 반환하고 입력 대기하지 않도록 명시됨
+□ 번호 입력 fallback은 사용자 명시 허용 시에만 사용하도록 명시됨
 □ fallback 사용 조건과 fallback 기록 위치가 명시됨
 
 **[Tasklist Handoff 구현]**

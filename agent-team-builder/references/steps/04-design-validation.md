@@ -37,7 +37,9 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 □ 선택형 사용자 질문이 terminal-choice 방식으로 설계됨
 □ 단일 선택은 방향키 + Enter, 복수 선택은 Space 토글 + Enter로 명시됨
 □ A/B/C 직접 타이핑 또는 쉼표 입력이 기본 방식으로 남아 있지 않음
-□ fallback 조건과 기록 위치가 명시됨
+□ 비대화형 셸에서 `INTERACTIVE_REQUIRED`를 반환하고 입력 대기하지 않도록 명시됨
+□ 번호 입력 fallback은 사용자 명시 허용 시에만 사용하도록 명시됨
+□ fallback/default 조건과 기록 위치가 명시됨
 
 **[Project-Aware TDD]**
 □ 01_project_analysis.md의 Test Environment Profile이 설계에 반영됨

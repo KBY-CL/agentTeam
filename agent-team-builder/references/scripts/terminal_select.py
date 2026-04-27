@@ -9,6 +9,13 @@ import os
 import sys
 from dataclasses import dataclass
 
+try:
+    sys.stdin.reconfigure(encoding="utf-8", errors="replace")
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except AttributeError:
+    pass
+
 
 @dataclass
 class Option:
@@ -138,6 +145,21 @@ def fallback_select(question: str, options: list[Option], multi: bool, default: 
     return [options[i] for i in indexes]
 
 
+def default_select(options: list[Option], multi: bool, default: int) -> list[Option]:
+    index = max(0, min(default, len(options) - 1))
+    return [options[index]]
+
+
+def interactive_required(question: str, options: list[Option], multi: bool) -> dict[str, object]:
+    return {
+        "status": "INTERACTIVE_REQUIRED",
+        "reason": "stdin/stdout is not a TTY; arrow-key selection cannot run in this shell",
+        "question": question,
+        "multi": multi,
+        "options": [{"value": item.value, "label": item.label} for item in options],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Arrow-key selection UI for agent interviews.")
     parser.add_argument("--question", required=True)
@@ -145,6 +167,12 @@ def main() -> int:
     parser.add_argument("--multi", action="store_true")
     parser.add_argument("--default", type=int, default=0, help="zero-based default index")
     parser.add_argument("--json", action="store_true", help="print JSON result")
+    parser.add_argument(
+        "--fallback-mode",
+        choices=["error", "prompt", "default"],
+        default="error",
+        help="behavior when stdin/stdout is not a TTY",
+    )
     args = parser.parse_args()
 
     options = [parse_option(raw) for raw in args.option]
@@ -153,10 +181,26 @@ def main() -> int:
 
     if supports_interactive():
         chosen = interactive_select(args.question, options, args.multi, args.default)
+        status = "OK"
     else:
-        chosen = fallback_select(args.question, options, args.multi, args.default)
+        if args.fallback_mode == "error":
+            result = interactive_required(args.question, options, args.multi)
+            if args.json:
+                print(json.dumps(result, ensure_ascii=False))
+            else:
+                print("Interactive terminal required. Run this command in a real TTY.")
+                for item in options:
+                    print(f"- {item.value}: {item.label}")
+            return 2
+        if args.fallback_mode == "default":
+            chosen = default_select(options, args.multi, args.default)
+            status = "DEFAULTED"
+        else:
+            chosen = fallback_select(args.question, options, args.multi, args.default)
+            status = "FALLBACK_PROMPT"
 
     result = {
+        "status": status,
         "multi": args.multi,
         "values": [item.value for item in chosen],
         "labels": [item.label for item in chosen],

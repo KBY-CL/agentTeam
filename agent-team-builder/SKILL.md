@@ -78,6 +78,7 @@ agent team은 기본적으로 **Project-Aware TDD-first**를 지향합니다.
 - 선택형 인터뷰와 agent 질문은 터미널 방향키 선택 UI를 우선 사용합니다.
 - 단일 선택은 방향키 + Enter, 복수 선택은 방향키 + Space + Enter로 받습니다.
 - 사용자가 선택지를 직접 타이핑하게 만드는 A/B/C 방식은 fallback일 때만 허용합니다.
+- 비대화형 `Bash(...)`에서 TTY가 없으면 `INTERACTIVE_REQUIRED`를 반환하고 입력을 기다리지 않습니다.
 - 생성된 agent team에는 `.claude/skills/_common/terminal-choice/SKILL.md`와 `.agent-team/tools/terminal_select.py` 사용 규칙을 포함합니다.
 
 ## Tasklist Handoff Policy
