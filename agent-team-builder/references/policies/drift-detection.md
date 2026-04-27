@@ -24,7 +24,6 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - `shared-rules.md` 와 보안 프로필 불일치
 - doc-updater 호출 조건 약화 / 삭제
 - tdd-workflow 누락 또는 Red/Green gate 약화 / 삭제
-- terminal-choice 누락 또는 선택형 질문의 직접 타이핑 방식 회귀
 - tasklist-handoff 누락 또는 implementation-agent의 전체 설계서 기본 입력 회귀
 - Implementation Agent의 Red Verifier 승인 조건 삭제
 - settings hooks 변경
@@ -41,7 +40,6 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - description trigger 변경
 - doc-updater 호출 조건 약화
 - tdd-workflow 호출 조건 약화
-- terminal-choice fallback 조건 불명확
 - tasklist template 필드 일부 누락
 
 ### FAIL
@@ -51,7 +49,6 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - forbidden 누락
 - model 변경
 - Red 검증 전 production code 수정 금지 규칙 삭제
-- 선택형 인터뷰가 기본적으로 A/B/C 직접 타이핑 방식으로 변경됨
 - 승인된 tasklist 없이 implementation-agent가 production code를 수정할 수 있음
 
 ### CRITICAL

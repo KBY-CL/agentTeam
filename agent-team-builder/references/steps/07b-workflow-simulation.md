@@ -9,7 +9,6 @@ subagent_type: general-purpose / model: opus
 - verifier / security 책임 변경
 - handoff 흐름 변경
 - agent trigger condition 변경
-- 사용자 인터랙션 방식 변경
 - tasklist handoff 방식 변경
 
 ## 3개 시나리오
@@ -20,7 +19,6 @@ subagent_type: general-purpose / model: opus
 
 검증:
 □ request-intake-agent의 트리거 조건이 이 요청에 맞는가
-□ request-intake-agent가 선택형 질문을 terminal-choice(방향키/Space/Enter)로 받는가
 □ feature-architect-agent가 포함된 설계라면 기능 설계 산출물 파일명 선호를 묻거나 추천 파일명을 제시하는가
 □ feature-architect-agent가 implementation tasklist를 생성하는가
 □ tasklist에 owner, depends_on, files, done_when, test command가 포함되는가

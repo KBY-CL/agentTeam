@@ -1,10 +1,6 @@
 # Step 2B — 위험도 기반 추가 질문 (조건부)
 
 2A 답변과 01_project_analysis.md 기반으로 해당 조건의 질문만 선택해 진행하세요.
-`references/policies/terminal-interaction.md`를 적용하여 모든 선택형 질문은 방향키 UI로 받으세요.
-복수 선택은 Space로 토글하고 Enter로 확정합니다.
-비대화형 셸에서 `INTERACTIVE_REQUIRED`가 반환되면 입력을 기다리지 말고 사용자에게 선택을 요청하세요.
-Windows 환경에서는 먼저 `terminal_select_windows.py`로 별도 cmd 창 선택을 시도하세요.
 
 ```
 Q6. 자동화 금지 영역 (Q3=C 또는 Q1에 C 포함 시)
@@ -30,5 +26,4 @@ A) CLAUDE.md만   B) AGENTS.md + CLAUDE.md
 C) 서비스 구조 문서까지   D) API 문서까지
 ```
 
-답변을 `02_interview_result.md`의 "2B 추가 답변" 섹션에 value와 label 모두로 추가하세요.
-`INTERACTIVE_REQUIRED`, fallback, default를 사용했다면 "인터랙션 방식" 섹션에 사유를 기록하세요.
+답변을 `02_interview_result.md`의 "2B 추가 답변" 섹션에 추가하세요.

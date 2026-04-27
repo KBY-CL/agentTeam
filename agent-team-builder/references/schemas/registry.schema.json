@@ -212,7 +212,6 @@
             "enum": [
               "agent",
               "skill",
-              "tool",
               "hook",
               "config",
               "doc"
