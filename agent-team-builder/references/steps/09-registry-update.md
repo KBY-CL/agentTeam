@@ -9,7 +9,7 @@ Generate / Update가 성공적으로 끝난 뒤 메인 Claude가 수행합니다
 
 ## 실행 절차
 
-1. 실제 `.claude/agents/*.md`, `.claude/skills/**`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `docs/tool-inventory.md` 상태 수집
+1. 실제 `.claude/agents/*.md`, `.claude/skills/**`, `.agent-team/tools/terminal_select.py`, `.claude/settings.json`, `CLAUDE.md`, `AGENTS.md`, `docs/tool-inventory.md` 상태 수집
 2. hash policy 대상 파일에 대해 `sha256` 과 `line_count` 계산
 3. `registry.json` top-level fields 채우기
 4. Project-Aware TDD-first가 적용된 경우 `development_methodology` 필드에 반영

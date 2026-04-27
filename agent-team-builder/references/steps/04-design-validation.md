@@ -9,6 +9,7 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 2. .agent-team/02_interview_result.md
 3. references/checklists/context-budget.md (이 단계에서 함께 로드)
 4. references/policies/tdd-first.md (이 단계에서 함께 로드)
+5. references/policies/terminal-interaction.md (이 단계에서 함께 로드)
 
 ## 체크리스트
 
@@ -30,6 +31,12 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 
 **[인터뷰 반영]**
 □ Q1·Q3·Q5 반영 / Q6(자동화 금지) → forbidden 반영
+
+**[터미널 인터랙션]**
+□ 선택형 사용자 질문이 terminal-choice 방식으로 설계됨
+□ 단일 선택은 방향키 + Enter, 복수 선택은 Space 토글 + Enter로 명시됨
+□ A/B/C 직접 타이핑 또는 쉼표 입력이 기본 방식으로 남아 있지 않음
+□ fallback 조건과 기록 위치가 명시됨
 
 **[Project-Aware TDD]**
 □ 01_project_analysis.md의 Test Environment Profile이 설계에 반영됨

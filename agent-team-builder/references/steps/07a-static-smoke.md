@@ -27,6 +27,12 @@ Python이 없으면:
 
 - agent frontmatter 필수 필드
 - required files 존재 여부
+  - request-intake-agent.md
+  - terminal-choice/SKILL.md
+  - tdd-workflow/SKILL.md
+  - doc-updater/SKILL.md
+  - handoff-writer/SKILL.md
+  - .agent-team/tools/terminal_select.py
 - CLAUDE.md / AGENTS.md / shared-rules line budget
 - settings.json 유효성 및 duplicate hooks
 - tools / forbidden overlap

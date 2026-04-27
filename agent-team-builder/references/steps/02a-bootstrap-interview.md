@@ -1,7 +1,21 @@
 # Step 2A — Bootstrap Interview (메인 Claude 직접 수행)
 
 01_project_analysis.md를 읽은 후 프로젝트명·모듈명을 실제로 채워 질문을 제시하세요.
-사용자는 알파벳 선택. 복수 선택은 쉼표 구분.
+`references/policies/terminal-interaction.md`를 적용하세요.
+사용자는 타이핑하지 않고 방향키로 선택합니다. 복수 선택은 Space로 토글하고 Enter로 확정합니다.
+
+실행 예:
+
+```bash
+python references/scripts/terminal_select.py --multi --json \
+  --question "Q1. 에이전트 팀의 주요 목적" \
+  --option "A=신규 기능 개발 지원" \
+  --option "B=코드 품질 관리" \
+  --option "C=배포 및 CI/CD 자동화" \
+  --option "D=문서화·CLAUDE.md 유지" \
+  --option "E=보안 취약점 탐지·수정" \
+  --option "F=기타"
+```
 
 ```
 Q1. 에이전트 팀의 주요 목적 (복수 선택 가능)
@@ -43,7 +57,11 @@ A) 최소 (3개)   B) 표준 (4~5개, 권장)   C) 풀 (6개)
 # 요구사항 인터뷰 결과
 
 ## 선택 항목
-Q1: {값}  Q2: {값}  Q3: {값}  Q4: {값}  Q5: {값}
+Q1: {선택 value + label}  Q2: {선택 value + label}  Q3: {선택 value + label}  Q4: {선택 value + label}  Q5: {선택 value + label}
+
+## 인터랙션 방식
+- terminal_select.py 사용 여부: yes/no
+- fallback 사용 시 사유:
 
 ## 2B 추가 답변 (해당 시)
 Q6: {값}  Q7: {값}  Q8: {값}  Q9: {값}

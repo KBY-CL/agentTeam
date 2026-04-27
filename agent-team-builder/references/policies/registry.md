@@ -42,6 +42,7 @@ registry는 다음 실행의 시작점이 되는 운영 상태 파일입니다.
 - `.claude/agents/*.md`
 - `.claude/agents/_common/shared-rules.md`
 - `.claude/skills/**/SKILL.md`
+- `.agent-team/tools/terminal_select.py`
 - `.claude/settings.json`
 - `CLAUDE.md`
 - `AGENTS.md`

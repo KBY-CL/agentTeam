@@ -7,7 +7,8 @@ subagent_type: general-purpose / model: opus
 2. .agent-team/02_interview_result.md
 3. references/policies/security-profiles.md (이 단계에서 함께 로드)
 4. references/policies/tdd-first.md (이 단계에서 함께 로드)
-[재호출 시] 5. .agent-team/04_validation_feedback_{N-1}.md
+5. references/policies/terminal-interaction.md (이 단계에서 함께 로드)
+[재호출 시] 6. .agent-team/04_validation_feedback_{N-1}.md
 
 agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면 해당 섹션만 부분 Read.
 
@@ -23,12 +24,15 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - 테스트 인프라가 없으면 신규 도입을 사용자 승인 대상으로 표시
 - 기능 설계 책임 agent가 있으면 이름은 `feature-architect-agent`로 고정하고, 한글 호칭은 "기능 설계 에이전트"로 명시
 - 기능 설계 에이전트는 신규 기능 설계 산출 파일을 만들기 전에 파일명 선호를 사용자에게 묻거나 추천 파일명을 제시해 확정해야 함
+- 모든 선택형 사용자 질문은 terminal-choice 방식(방향키 + Enter, 복수 선택은 Space 토글)을 사용하도록 설계
+- "A/B/C를 타이핑하세요", "쉼표로 입력하세요"를 기본 인터뷰 방식으로 설계하지 않음
 
 ## 필수 포함 에이전트
 **Request Intake Agent** (.claude/agents/request-intake-agent.md)
 - 역할: 선택지 방식으로 개발 요청을 구체화
 - model: sonnet
 - 01_project_analysis.md 참조하여 맥락 있는 선택지 생성
+- 선택형 질문은 terminal-choice 사용
 - 출력: .agent-team/intake_{timestamp}.md → handoff
 
 ## 산출물: `.agent-team/03_agent_design_spec_v{N}.md`
@@ -51,6 +55,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - tools / forbidden / 출력 계약([PASS]/[FAIL])
 - skills (frontmatter 포함 여부) / 본문 내 호출 조건 명시 스킬
 - 보안 책임
+- 사용자 질문 방식: terminal-choice 적용 여부 / fallback 조건
 
 ### Feature Architect Agent (해당 시)
 - 이름: `feature-architect-agent` / 한글 호칭: 기능 설계 에이전트
@@ -69,6 +74,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - 공통 Tools / Hooks
 - 공통 보안 규칙 표
 - Project-Aware TDD Gate: Acceptance Criteria → Test Strategy → Failing Test → Red Verification → Minimal Implementation → Green Verification → Refactor → Regression/Security Verification → Documentation Update
+- Terminal Interaction: 선택형 질문은 `.claude/skills/_common/terminal-choice/SKILL.md` 또는 `.agent-team/tools/terminal_select.py` 사용
 
 ## doc-updater 위치 규칙 (반드시 준수)
 - ✅ .claude/skills/_common/doc-updater/SKILL.md 파일로 존재 (공통 스킬 파일)
@@ -82,8 +88,14 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 ## 설계 산출물 파일명 확인 규칙
 - 기능 설계 에이전트가 신규 기능 설계 요청을 받으면 산출물 파일 생성 전에 파일명을 확정한다.
 - 사용자가 파일명을 이미 지정한 경우 그 이름을 사용하되, 충돌·보안·경로 문제가 있으면 대안을 제시한다.
-- 사용자가 파일명을 지정하지 않은 경우 기능명을 slug로 변환한 추천 파일명 1~3개를 제시하고 선호를 묻는다.
+- 사용자가 파일명을 지정하지 않은 경우 기능명을 slug로 변환한 추천 파일명 1~3개를 제시하고 terminal-choice로 선호를 묻는다.
 - 사용자가 빠른 진행을 원하거나 응답이 없으면 가장 보수적인 기본 추천안을 사용하고 handoff에 선택 근거를 기록한다.
+
+## 사용자 인터랙션 설계
+- Request Intake Agent와 질문형 agent는 선택지를 terminal-choice로 제시한다.
+- 단일 선택은 방향키 + Enter, 복수 선택은 방향키 + Space + Enter를 사용한다.
+- 자유 입력은 "기타" 선택 후 보충 설명처럼 선택지로 표현할 수 없는 경우에만 허용한다.
+- 비대화형 환경에서는 fallback을 사용하고 산출물에 사유를 기록한다.
 
 ## TDD-first 설계
 - Test Environment Profile 요약: 01_project_analysis.md 기반

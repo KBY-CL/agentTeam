@@ -31,6 +31,7 @@
 | policies/audit-mode.md | Step 8 |
 | policies/security-profiles.md | Step 3 |
 | policies/tdd-first.md | Step 1, Step 3, Step 4, Step 5, Step 6 |
+| policies/terminal-interaction.md | Step 2A, Step 2B, Step 3, Step 4, Step 5, Step 6 |
 | policies/file-protection.md | Step 5 |
 | policies/approval-and-revalidation.md | Step 4.5 |
 
@@ -43,6 +44,7 @@
 | 파일 | 사용 단계 |
 |---|---|
 | scripts/static_smoke.py | Step 7A |
+| scripts/terminal_select.py | Step 2A, Step 2B, Step 5 |
 
 ### checklists/ — 검증 체크리스트
 | 파일 | 함께 로드할 단계 |
