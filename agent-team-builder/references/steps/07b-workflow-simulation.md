@@ -18,6 +18,7 @@ subagent_type: general-purpose / model: opus
 
 검증:
 □ request-intake-agent의 트리거 조건이 이 요청에 맞는가
+□ feature-architect-agent가 포함된 설계라면 기능 설계 산출물 파일명 선호를 묻거나 추천 파일명을 제시하는가
 □ Acceptance Criteria와 테스트 범위가 handoff에 기록되는가
 □ 기존 프로젝트 테스트 관례를 먼저 확인하는가
 □ 실패 테스트 작성 후 Red Verification이 구현보다 먼저 실행되는가

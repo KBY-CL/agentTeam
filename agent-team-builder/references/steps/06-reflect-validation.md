@@ -39,6 +39,8 @@ subagent_type: general-purpose / model: opus
 □ settings.json hooks 중복 없음
 □ request-intake-agent가 선택지 기반 인터뷰·handoff 구조 보유
 □ Q6(자동화 금지) 항목이 forbidden에 반영
+□ feature-architect-agent가 있으면 기능 설계 산출물 파일명 확인 규칙을 보유
+□ feature-architect-agent가 agent team topology/config 직접 변경 금지를 명시
 
 **[skills: frontmatter]**
 □ agent frontmatter의 skills:에 대형 스킬이 preload되지 않았는가

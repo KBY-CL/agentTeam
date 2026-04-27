@@ -39,6 +39,11 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 □ Green 검증이 프로젝트의 실제 test/CI command 기준으로 연결됨
 □ 새 테스트 프레임워크·테스트 구조·CI 변경은 사용자 승인 대상으로 표시됨
 
+**[기능 설계 에이전트]**
+□ 기능 설계 책임 agent가 있으면 이름이 `feature-architect-agent`로 명확히 구분됨
+□ 기능 설계 에이전트가 agent team topology/config를 직접 변경하지 못하도록 금지 범위가 있음
+□ 신규 기능 설계 산출물 작성 전 파일명 선호를 묻거나 추천 파일명으로 확인하는 규칙이 있음
+
 **[근거 매트릭스]**
 □ 추가 근거 매트릭스 섹션 존재
 □ Sub-agent·Skill·Hook·Tool 각각 이유·대안 있음

@@ -66,6 +66,13 @@ agent team은 기본적으로 **Project-Aware TDD-first**를 지향합니다.
 - Red 실패 원인은 기능 미구현이어야 하며 import/config/fixture 오류는 Red 통과로 보지 않습니다.
 - 테스트 인프라가 없으면 사용자 승인 전까지 테스트 프레임워크를 추가하지 않고 최소 도입안을 제안합니다.
 
+## Agent Naming Policy
+
+- agent team 자체를 설계하는 책임은 `team-architect-agent` 또는 Step 3 설계서 작성 에이전트로 구분합니다.
+- 구성된 team 안에서 기능, API, DB, 테스트 전략, 구현 계획을 설계하는 agent는 `feature-architect-agent`로 부르고, 한글 호칭은 "기능 설계 에이전트"로 고정합니다.
+- `design-agent`, `architect-agent`처럼 설계 대상이 불분명한 이름은 사용하지 않습니다.
+- 기능 설계 에이전트는 신규 기능 설계 산출 파일을 만들기 전에 사용자에게 선호 파일명을 묻거나 추천 파일명을 제시해 확정합니다.
+
 ## Pipeline
 
 ```text

@@ -29,6 +29,16 @@ alias → 실제 ID 변환: opus→claude-opus-4-7 / sonnet→claude-sonnet-4-6 
 - 선택지 기반 인터뷰 흐름: 요청 유형 → 영향 범위 → 우선순위 → 보안 관련 여부
 - 결과: .agent-team/intake_{timestamp}.md + handoff 규칙
 
+**.claude/agents/feature-architect-agent.md** (설계서에 포함된 경우)
+- 한글 호칭: 기능 설계 에이전트
+- 신규 기능, API, DB, 테스트 전략, 구현 계획 설계 담당
+- agent team topology, `.claude/agents`, `.claude/skills`, hooks, registry 직접 변경 금지
+- 신규 기능 설계 산출물 생성 전 파일명 확인 규칙 명시:
+  - 사용자가 파일명을 지정했으면 충돌·경로 문제만 확인 후 사용
+  - 지정하지 않았으면 추천 파일명 1~3개를 제시하고 선호를 질문
+  - 추천 패턴: `.agent-team/feature_design_{slug}_{timestamp}.md`, `.claude/handoff/feature_design_{slug}_{timestamp}.md`, `docs/design/{slug}.md`
+  - 빠른 진행 요청 또는 응답 부재 시 기본 추천안을 사용하고 handoff에 근거 기록
+
 **.claude/agents/_common/shared-rules.md** — 250줄 이하 유지
 Common 보안 규칙 포함: 하드코딩 금지, 입력 검증, 파라미터화 쿼리, XSS 방지, 로그 민감정보 금지
 도메인 보안 규칙(Web/Infra/DataPipeline/AI·RAG)은 해당 시만 추가

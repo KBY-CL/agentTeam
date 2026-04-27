@@ -21,6 +21,8 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - production code 수정은 실패 테스트 작성과 Red 검증 `[PASS]` 이후에만 허용
 - 기존 테스트 프레임워크·파일 위치·fixture/mock 방식·CI 명령을 우선 사용
 - 테스트 인프라가 없으면 신규 도입을 사용자 승인 대상으로 표시
+- 기능 설계 책임 agent가 있으면 이름은 `feature-architect-agent`로 고정하고, 한글 호칭은 "기능 설계 에이전트"로 명시
+- 기능 설계 에이전트는 신규 기능 설계 산출 파일을 만들기 전에 파일명 선호를 사용자에게 묻거나 추천 파일명을 제시해 확정해야 함
 
 ## 필수 포함 에이전트
 **Request Intake Agent** (.claude/agents/request-intake-agent.md)
@@ -50,6 +52,13 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - skills (frontmatter 포함 여부) / 본문 내 호출 조건 명시 스킬
 - 보안 책임
 
+### Feature Architect Agent (해당 시)
+- 이름: `feature-architect-agent` / 한글 호칭: 기능 설계 에이전트
+- 역할: 신규 기능, API, DB, 테스트 전략, 구현 계획 설계
+- 금지: agent team topology, `.claude/agents`, `.claude/skills`, hooks, registry 직접 변경
+- 파일명 확인 규칙: 신규 설계 산출물 작성 전 사용자에게 선호 파일명을 묻거나 추천 파일명 1~3개를 제시하고 확정 후 생성
+- 추천 파일명 패턴: `.agent-team/feature_design_{slug}_{timestamp}.md`, `.claude/handoff/feature_design_{slug}_{timestamp}.md`, `docs/design/{slug}.md`
+
 ### Request Intake Agent (필수)
 - 역할: 개발 요청 접수 및 요구사항 구체화
 - model: sonnet
@@ -69,6 +78,12 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 ## 개별 구성요소 (에이전트별 전용)
 
 ## Handoff 구조
+
+## 설계 산출물 파일명 확인 규칙
+- 기능 설계 에이전트가 신규 기능 설계 요청을 받으면 산출물 파일 생성 전에 파일명을 확정한다.
+- 사용자가 파일명을 이미 지정한 경우 그 이름을 사용하되, 충돌·보안·경로 문제가 있으면 대안을 제시한다.
+- 사용자가 파일명을 지정하지 않은 경우 기능명을 slug로 변환한 추천 파일명 1~3개를 제시하고 선호를 묻는다.
+- 사용자가 빠른 진행을 원하거나 응답이 없으면 가장 보수적인 기본 추천안을 사용하고 handoff에 선택 근거를 기록한다.
 
 ## TDD-first 설계
 - Test Environment Profile 요약: 01_project_analysis.md 기반
