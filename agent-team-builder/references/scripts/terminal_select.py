@@ -8,6 +8,7 @@ import json
 import os
 import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 try:
     sys.stdin.reconfigure(encoding="utf-8", errors="replace")
@@ -167,6 +168,8 @@ def main() -> int:
     parser.add_argument("--multi", action="store_true")
     parser.add_argument("--default", type=int, default=0, help="zero-based default index")
     parser.add_argument("--json", action="store_true", help="print JSON result")
+    parser.add_argument("--out", help="write JSON result to this file")
+    parser.add_argument("--pause-on-complete", action="store_true")
     parser.add_argument(
         "--fallback-mode",
         choices=["error", "prompt", "default"],
@@ -205,10 +208,17 @@ def main() -> int:
         "values": [item.value for item in chosen],
         "labels": [item.label for item in chosen],
     }
+    if args.out:
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
     if args.json:
         print(json.dumps(result, ensure_ascii=False))
     else:
         print(", ".join(result["labels"]))
+    if args.pause_on_complete and supports_interactive():
+        print("\nSelection saved. Press Enter to close this window.")
+        input()
     return 0
 
 

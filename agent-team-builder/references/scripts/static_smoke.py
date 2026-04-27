@@ -199,6 +199,7 @@ for rel_path, base_dir in [
     ("_common/doc-updater/SKILL.md", SKILLS_DIR),
     ("_common/handoff-writer/SKILL.md", SKILLS_DIR),
     ("terminal_select.py", TOOLS_DIR),
+    ("terminal_select_windows.py", TOOLS_DIR),
 ]:
     target = base_dir / rel_path
     check(

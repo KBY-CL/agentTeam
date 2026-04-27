@@ -34,6 +34,7 @@ Python이 없으면:
   - doc-updater/SKILL.md
   - handoff-writer/SKILL.md
   - .agent-team/tools/terminal_select.py
+  - .agent-team/tools/terminal_select_windows.py
 - CLAUDE.md / AGENTS.md / shared-rules line budget
 - settings.json 유효성 및 duplicate hooks
 - tools / forbidden overlap

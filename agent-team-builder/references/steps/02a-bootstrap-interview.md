@@ -18,6 +18,7 @@ python references/scripts/terminal_select.py --multi --json \
 ```
 
 비대화형 셸에서 `INTERACTIVE_REQUIRED`가 반환되면 `input()` fallback을 실행하지 말고, 반환된 options를 사용자에게 보여주고 채팅 응답 또는 실제 TTY 재실행을 요청하세요.
+Windows 환경에서는 먼저 `python references/scripts/terminal_select_windows.py ...`로 별도 cmd 창 선택을 시도하세요.
 
 ```
 Q1. 에이전트 팀의 주요 목적 (복수 선택 가능)

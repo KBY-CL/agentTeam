@@ -4,6 +4,7 @@
 `references/policies/terminal-interaction.md`를 적용하여 모든 선택형 질문은 방향키 UI로 받으세요.
 복수 선택은 Space로 토글하고 Enter로 확정합니다.
 비대화형 셸에서 `INTERACTIVE_REQUIRED`가 반환되면 입력을 기다리지 말고 사용자에게 선택을 요청하세요.
+Windows 환경에서는 먼저 `terminal_select_windows.py`로 별도 cmd 창 선택을 시도하세요.
 
 ```
 Q6. 자동화 금지 영역 (Q3=C 또는 Q1에 C 포함 시)

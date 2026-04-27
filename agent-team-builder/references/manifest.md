@@ -46,6 +46,7 @@
 |---|---|
 | scripts/static_smoke.py | Step 7A |
 | scripts/terminal_select.py | Step 2A, Step 2B, Step 5 |
+| scripts/terminal_select_windows.py | Step 2A, Step 2B, Step 5 (Windows non-TTY) |
 
 ### checklists/ — 검증 체크리스트
 | 파일 | 함께 로드할 단계 |
