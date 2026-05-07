@@ -14,7 +14,7 @@ C) Jira·Notion·Slack 연동 필요
 D) 외부 시스템 연동 불필요
 
 Q8. TDD 검증 기준 (Q2에 A·B·C 포함 시)
-A) 기존 테스트 명령 기준 Red/Green 필수
+A) 기존 테스트 명령과 Test Pattern Guide 기준 Red/Green 필수
 B) 단위 테스트 필수
 C) 통합 테스트 필수
 D) 보안 리뷰 필수

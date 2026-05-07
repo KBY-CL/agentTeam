@@ -14,6 +14,7 @@
 ```text
 Request Intake
 → Feature Design
+→ Test Pattern Guide 확인
 → Test Strategy
 → Implementation Tasklist 작성
 → Tasklist Verification
@@ -38,11 +39,13 @@ Request Intake
 ## Source
 - feature design:
 - test environment profile:
+- test pattern guide:
 - test strategy:
 - red verification:
 
 ## Global Rules
 - Red PASS 없는 production code 수정 금지
+- 테스트 작성은 `.agent-team/test_pattern_guide.md`의 패턴 준수
 - task 순서 변경 금지
 - task별 files 범위 밖 수정 금지
 - 관련 테스트 명령과 결과 기록
@@ -54,6 +57,7 @@ Request Intake
 - files:
 - command:
 - done_when: 기능 미구현 사유로 실패
+- pattern_basis: `.agent-team/test_pattern_guide.md`의 어떤 패턴을 사용했는지 기록
 
 ### T2 — 최소 구현
 - owner: implementation-agent
@@ -72,6 +76,7 @@ Request Intake
 ## Validation Requirements
 
 - task마다 owner, depends_on, files, done_when이 있어야 합니다.
+- Source에 test pattern guide 경로가 있어야 합니다.
 - production code 수정 task는 Red PASS에 의존해야 합니다.
 - Implementation Agent 입력은 승인된 tasklist 중심이어야 합니다.
 - tasklist 승인 전 구현 시작은 FAIL입니다.

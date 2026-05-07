@@ -28,7 +28,7 @@ registry는 다음 실행의 시작점이 되는 운영 상태 파일입니다.
 
 ## Optional Top-Level Fields
 
-- `development_methodology`: Project-Aware TDD-first 등 개발 방법론 상태
+- `development_methodology`: Project-Aware TDD-first 등 개발 방법론 상태. 적용 시 `test_environment_profile`과 `test_pattern_guide` 경로를 함께 기록합니다.
 
 ## Phase 1 Risk Level Rule
 
