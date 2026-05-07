@@ -32,7 +32,9 @@ Python이 없으면:
   - tdd-workflow/SKILL.md
   - doc-updater/SKILL.md
   - handoff-writer/SKILL.md
+  - `.agent-team/test_pattern_guide.md`
 - CLAUDE.md / AGENTS.md / shared-rules line budget
+- shared-rules와 tdd-workflow의 Test Pattern Guide 참조 여부
 - settings.json 유효성 및 duplicate hooks
 - tools / forbidden overlap
 - global forbidden MCP tool patterns

@@ -21,6 +21,7 @@ SKILLS_DIR = ROOT / ".claude/skills"
 HOOKS_DIR = ROOT / ".claude/hooks"
 TOOLS_DIR = ROOT / ".agent-team/tools"
 REGISTRY_PATH = ROOT / ".agent-team/registry.json"
+TEST_PATTERN_GUIDE_PATH = ROOT / ".agent-team/test_pattern_guide.md"
 SCHEMA_CANDIDATES = [
     ROOT / ".agent-team/schemas/registry.schema.json",
     ROOT / "references/schemas/registry.schema.json",
@@ -205,6 +206,12 @@ for rel_path, base_dir in [
         "" if target.exists() else "file not found",
     )
 
+check(
+    "required:.agent-team/test_pattern_guide.md",
+    TEST_PATTERN_GUIDE_PATH.exists(),
+    "" if TEST_PATTERN_GUIDE_PATH.exists() else "file not found",
+)
+
 # 3. CLAUDE.md marker blocks + import
 claude_md = ROOT / "CLAUDE.md"
 if claude_md.exists():
@@ -233,8 +240,20 @@ if shared_rules.exists():
         "shared-rules:security-section",
         any(token in text for token in ["secrets", "hardcod", "하드코딩"]),
     )
+    check(
+        "shared-rules:test-pattern-guide",
+        "test_pattern_guide" in text or "Test Pattern Guide" in text,
+    )
     line_count = len(text.splitlines())
     check("shared-rules:line-budget", line_count <= 200, f"{line_count} lines (limit 200)")
+
+tdd_workflow = SKILLS_DIR / "_common/tdd-workflow/SKILL.md"
+if tdd_workflow.exists():
+    text = tdd_workflow.read_text(encoding="utf-8")
+    check(
+        "tdd-workflow:test-pattern-guide",
+        "test_pattern_guide" in text or "Test Pattern Guide" in text,
+    )
 
 # 6. settings.json validity + duplicate hooks
 settings = ROOT / ".claude/settings.json"

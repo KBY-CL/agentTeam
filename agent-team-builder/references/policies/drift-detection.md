@@ -10,6 +10,7 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - `.agent-team/registry.json`
 - 최신 설계서 `.agent-team/03_agent_design_spec_v*.md`
 - 최신 승인 / 구현 로그
+- `.agent-team/test_pattern_guide.md`
 - 실제 `.claude/agents/*.md`
 - 실제 `.claude/skills/**`
 - 실제 `.claude/settings.json`
@@ -24,6 +25,7 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - `shared-rules.md` 와 보안 프로필 불일치
 - doc-updater 호출 조건 약화 / 삭제
 - tdd-workflow 누락 또는 Red/Green gate 약화 / 삭제
+- Test Pattern Guide 파일 누락 또는 tdd-workflow/shared-rules/tasklist template의 참조 삭제
 - tasklist-handoff 누락 또는 implementation-agent의 전체 설계서 기본 입력 회귀
 - Implementation Agent의 Red Verifier 승인 조건 삭제
 - settings hooks 변경
@@ -40,6 +42,7 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - description trigger 변경
 - doc-updater 호출 조건 약화
 - tdd-workflow 호출 조건 약화
+- Test Pattern Guide confidence low 또는 Evidence 부족
 - tasklist template 필드 일부 누락
 
 ### FAIL
@@ -49,6 +52,7 @@ Drift Detection은 설계서, registry, 실제 구현 파일 사이의 정합성
 - forbidden 누락
 - model 변경
 - Red 검증 전 production code 수정 금지 규칙 삭제
+- Test Pattern Guide 참조 없이 테스트 작성 또는 구현이 가능한 흐름
 - 승인된 tasklist 없이 implementation-agent가 production code를 수정할 수 있음
 
 ### CRITICAL

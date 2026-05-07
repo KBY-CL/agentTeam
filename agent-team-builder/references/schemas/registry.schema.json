@@ -55,7 +55,9 @@
       "additionalProperties": false,
       "required": [
         "name",
-        "tdd_gate"
+        "tdd_gate",
+        "test_environment_profile",
+        "test_pattern_guide"
       ],
       "properties": {
         "name": {
@@ -71,6 +73,9 @@
           ]
         },
         "test_environment_profile": {
+          "type": "string"
+        },
+        "test_pattern_guide": {
           "type": "string"
         }
       }

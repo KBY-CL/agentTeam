@@ -7,8 +7,10 @@ subagent_type: general-purpose / model: opus
 2. .agent-team/02_interview_result.md
 3. references/policies/security-profiles.md (이 단계에서 함께 로드)
 4. references/policies/tdd-first.md (이 단계에서 함께 로드)
-5. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
-[재호출 시] 6. .agent-team/04_validation_feedback_{N-1}.md
+5. references/policies/test-pattern-guide.md (이 단계에서 함께 로드)
+6. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
+7. .agent-team/test_pattern_guide.md
+[재호출 시] 8. .agent-team/04_validation_feedback_{N-1}.md
 
 agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면 해당 섹션만 부분 Read.
 
@@ -19,6 +21,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 - skills: frontmatter에는 반드시 필요한 소형 스킬만 포함 (대형 스킬 preload 금지)
 - doc-updater는 에이전트 frontmatter의 skills:에 넣지 않음. 구현 에이전트 본문에 "기능 개발 완료 후 doc-updater 스킬을 호출한다"고 명시
 - Project-Aware TDD-first를 기본 개발 흐름으로 설계
+- `.agent-team/test_pattern_guide.md`를 테스트 전략, 실패 테스트 작성, Red/Green 검증의 필수 참조로 설계
 - production code 수정은 실패 테스트 작성과 Red 검증 `[PASS]` 이후에만 허용
 - 기존 테스트 프레임워크·파일 위치·fixture/mock 방식·CI 명령을 우선 사용
 - 테스트 인프라가 없으면 신규 도입을 사용자 승인 대상으로 표시
@@ -31,7 +34,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 **Request Intake Agent** (.claude/agents/request-intake-agent.md)
 - 역할: 선택지 방식으로 개발 요청을 구체화
 - model: sonnet
-- 01_project_analysis.md 참조하여 맥락 있는 선택지 생성
+- 01_project_analysis.md와 `.agent-team/test_pattern_guide.md`를 참조하여 맥락 있는 선택지 생성
 - 출력: .agent-team/intake_{timestamp}.md → handoff
 
 ## 산출물: `.agent-team/03_agent_design_spec_v{N}.md`
@@ -58,23 +61,26 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 ### Feature Architect Agent (해당 시)
 - 이름: `feature-architect-agent` / 한글 호칭: 기능 설계 에이전트
 - 역할: 신규 기능, API, DB, 테스트 전략, 구현 계획 설계 + implementation tasklist 작성
+- Test Pattern Guide를 바탕으로 테스트 전략과 tasklist 작성
 - 금지: agent team topology, `.claude/agents`, `.claude/skills`, hooks, registry 직접 변경
 - 파일명 확인 규칙: 신규 설계 산출물 작성 전 사용자에게 선호 파일명을 묻거나 추천 파일명 1~3개를 제시하고 확정 후 생성
 - 추천 파일명 패턴: `.agent-team/feature_design_{slug}_{timestamp}.md`, `.claude/handoff/feature_design_{slug}_{timestamp}.md`, `docs/design/{slug}.md`
 - tasklist 출력: `.agent-team/tasklist_{slug}_{timestamp}.md` 또는 `.claude/handoff/tasklist_{slug}_{timestamp}.md`
 - tasklist에는 Source, Global Rules, Tasks(owner/depends_on/files/done_when), Test Commands, 승인 상태 포함
+- tasklist Source에는 `.agent-team/test_pattern_guide.md` 경로와 적용한 테스트 패턴 포함
 - production code 수정 task는 Red PASS에 의존해야 함
 
 ### Request Intake Agent (필수)
 - 역할: 개발 요청 접수 및 요구사항 구체화
 - model: sonnet
 - 인터뷰 흐름: 요청 유형 → 영향 범위 → 우선순위 → 보안 관련 여부
+- 참조: `.agent-team/01_project_analysis.md`, `.agent-team/test_pattern_guide.md`
 - 출력: .agent-team/intake_{timestamp}.md
 
 ## 공통 구성요소
 - 공통 Tools / Hooks
 - 공통 보안 규칙 표
-- Project-Aware TDD Gate: Acceptance Criteria → Test Strategy → Failing Test → Red Verification → Minimal Implementation → Green Verification → Refactor → Regression/Security Verification → Documentation Update
+- Project-Aware TDD Gate: Acceptance Criteria → Test Pattern Guide 확인 → Test Strategy → Failing Test → Red Verification → Minimal Implementation → Green Verification → Refactor → Regression/Security Verification → Documentation Update
 - Tasklist Handoff: `feature-architect-agent`가 tasklist 작성, verifier 승인, `implementation-agent`는 승인된 tasklist만 실행
 
 ## doc-updater 위치 규칙 (반드시 준수)
@@ -99,6 +105,7 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 
 ## Tasklist Handoff 설계
 - 기능 설계 에이전트는 기능 설계와 테스트 전략을 바탕으로 implementation tasklist를 작성한다.
+- 기능 설계 에이전트는 `.agent-team/test_pattern_guide.md`에서 선택한 테스트 작성 패턴을 tasklist Source 또는 Global Rules에 기록한다.
 - tasklist 검토자는 test strategy/red verifier/quality verifier 중 설계된 역할에 맞게 지정한다.
 - tasklist 승인 전 implementation-agent는 production code를 수정하지 않는다.
 - implementation-agent의 기본 입력은 승인된 tasklist, 필요한 handoff 요약, 수정 대상 파일 목록, 테스트 명령으로 제한한다.
@@ -107,7 +114,8 @@ agent-team-guide.md는 전체 로드 금지. 안티패턴 확인이 필요하면
 
 ## TDD-first 설계
 - Test Environment Profile 요약: 01_project_analysis.md 기반
-- 개발 요청의 기본 흐름: Request Intake → 테스트 책임자 → Red Verifier → Implementation Agent → Green Verifier → Refactor/Quality Review → doc-updater
+- Test Pattern Guide 요약: `.agent-team/test_pattern_guide.md` 기반 테스트 파일 위치, naming, fixture/mock/factory, 명령
+- 개발 요청의 기본 흐름: Request Intake → Test Pattern Guide 확인 → 테스트 책임자 → Red Verifier → Implementation Agent → Green Verifier → Refactor/Quality Review → doc-updater
 - Red gate: 실패 테스트가 기능 미구현 때문에 실패해야 하며, 설정·fixture·import 오류는 FAIL
 - Green gate: 프로젝트의 실제 test/CI command 기준으로 검증
 - 테스트 인프라 부재 시: 사용자 승인 전 dependency/config/CI 변경 금지

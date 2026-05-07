@@ -7,8 +7,10 @@ file-protection.md도 이 단계에서 로드하세요.
 1. .agent-team/04_validation_approved.md + 최신 설계서
 2. references/policies/file-protection.md (이 단계에서 함께 로드)
 3. references/policies/tdd-first.md (이 단계에서 함께 로드)
-4. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
-[재호출 시] 5. .agent-team/06_reflect_feedback_{N}.md (지적 파일만 수정)
+4. references/policies/test-pattern-guide.md (이 단계에서 함께 로드)
+5. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
+6. .agent-team/test_pattern_guide.md
+[재호출 시] 7. .agent-team/06_reflect_feedback_{N}.md (지적 파일만 수정)
 
 ## 생성할 파일
 
@@ -27,12 +29,14 @@ alias → 실제 ID 변환: opus→claude-opus-4-7 / sonnet→claude-sonnet-4-6 
 
 **.claude/agents/request-intake-agent.md** (필수)
 - 01_project_analysis.md 참조 경로 명시
+- `.agent-team/test_pattern_guide.md` 참조 경로 명시
 - 선택지 기반 인터뷰 흐름: 요청 유형 → 영향 범위 → 우선순위 → 보안 관련 여부
 - 결과: .agent-team/intake_{timestamp}.md + handoff 규칙
 
 **.claude/agents/feature-architect-agent.md** (설계서에 포함된 경우)
 - 한글 호칭: 기능 설계 에이전트
 - 신규 기능, API, DB, 테스트 전략, 구현 계획 설계 및 implementation tasklist 작성 담당
+- 테스트 전략 작성 전에 `.agent-team/test_pattern_guide.md`를 확인하고 적용할 테스트 패턴을 handoff에 기록
 - agent team topology, `.claude/agents`, `.claude/skills`, hooks, registry 직접 변경 금지
 - 신규 기능 설계 산출물 생성 전 파일명 확인 규칙 명시:
   - 사용자가 파일명을 지정했으면 충돌·경로 문제만 확인 후 사용
@@ -41,12 +45,14 @@ alias → 실제 ID 변환: opus→claude-opus-4-7 / sonnet→claude-sonnet-4-6 
   - 빠른 진행 요청 또는 응답 부재 시 기본 추천안을 사용하고 handoff에 근거 기록
 - tasklist 생성 규칙 명시:
   - 출력: `.agent-team/tasklist_{slug}_{timestamp}.md` 또는 `.claude/handoff/tasklist_{slug}_{timestamp}.md`
+  - Source에 `.agent-team/test_pattern_guide.md`와 적용한 테스트 패턴 포함
   - 각 task에 owner, depends_on, files, done_when, test command 포함
   - production code 수정 task는 Red PASS에 의존
   - tasklist 검토자와 승인 상태 기록
 
 **.claude/agents/implementation-agent.md** (설계서에 포함된 경우)
 - 승인된 implementation tasklist를 기본 입력으로 사용
+- tasklist와 `.agent-team/test_pattern_guide.md`에 명시된 테스트 명령·패턴만 기본 근거로 사용
 - 전체 설계서, 인터뷰 원문, 긴 검증 로그를 기본 입력으로 받지 않음
 - tasklist에 명시된 파일과 섹션만 선택적으로 읽음
 - tasklist 승인 전 production code 수정 금지
@@ -55,15 +61,17 @@ alias → 실제 ID 변환: opus→claude-opus-4-7 / sonnet→claude-sonnet-4-6 
 **.claude/agents/_common/shared-rules.md** — 250줄 이하 유지
 Common 보안 규칙 포함: 하드코딩 금지, 입력 검증, 파라미터화 쿼리, XSS 방지, 로그 민감정보 금지
 도메인 보안 규칙(Web/Infra/DataPipeline/AI·RAG)은 해당 시만 추가
-Project-Aware TDD 공통 규칙 포함: Red 검증 전 production code 수정 금지, 기존 테스트 관례 우선, 신규 테스트 인프라 도입은 사용자 승인 필요
+Project-Aware TDD 공통 규칙 포함: Red 검증 전 production code 수정 금지, `.agent-team/test_pattern_guide.md` 우선, 신규 테스트 인프라 도입은 사용자 승인 필요
 Tasklist Handoff 공통 규칙 포함: 구현은 승인된 tasklist 중심으로 수행, tasklist 밖 범위 확장 금지
 
 **.claude/skills/_common/handoff-writer/SKILL.md**
 
 **.claude/skills/_common/tdd-workflow/SKILL.md** (필수)
 - 현재 프로젝트의 Test Environment Profile을 먼저 확인
+- `.agent-team/test_pattern_guide.md`를 확인하고 없거나 confidence가 low이면 Red 작성 전 패턴 재조사 또는 사용자 확인
 - Acceptance Criteria → Failing Test → Red Verification → Minimal Implementation → Green Verification → Refactor 순서 강제
 - 기존 테스트 프레임워크·테스트 위치·fixture/mock·CI 명령 우선
+- 테스트 파일 위치, naming, assertion, fixture/mock/factory 방식은 Test Pattern Guide 우선
 - Red 실패 원인 검증: 기능 미구현 외 실패는 FAIL
 - Green 검증: 실제 test/CI command 기준
 - 테스트 인프라가 없으면 사용자 승인 전 dependency/config/CI 변경 금지
@@ -72,7 +80,7 @@ Tasklist Handoff 공통 규칙 포함: 구현은 승인된 tasklist 중심으로
 - feature-architect-agent가 tasklist를 작성
 - verifier가 tasklist를 승인
 - implementation-agent는 승인된 tasklist만 기본 입력으로 사용
-- tasklist template: Source / Global Rules / Tasks(owner, depends_on, files, done_when) / Test Commands / Approval
+- tasklist template: Source(feature design, test environment profile, test pattern guide, red verification) / Global Rules / Tasks(owner, depends_on, files, done_when, pattern_basis) / Test Commands / Approval
 - tasklist 밖 파일 수정, 순서 변경, 범위 확장은 승인 필요
 
 **.claude/skills/_common/doc-updater/SKILL.md** (필수)
@@ -107,7 +115,8 @@ Tasklist Handoff 공통 규칙 포함: 구현은 승인된 tasklist 중심으로
   "development_methodology": {
     "name": "project-aware-tdd",
     "tdd_gate": "required",
-    "test_environment_profile": ".agent-team/01_project_analysis.md#Test Environment Profile"
+    "test_environment_profile": ".agent-team/01_project_analysis.md#Test Environment Profile",
+    "test_pattern_guide": ".agent-team/test_pattern_guide.md"
   },
   "agents": [
     {"name": "{agent-name}", "model": "{실제 model ID}", "file": ".claude/agents/{file}.md", "tools": ["Read"], "risk_level": "medium", "status": "active"}

@@ -57,6 +57,7 @@ Q6: {값}  Q7: {값}  Q8: {값}  Q9: {값}
 ## TDD 정책
 - 기본값: Project-Aware TDD-first
 - 01_project_analysis.md의 Test Environment Profile 기준으로 적용
+- `.agent-team/test_pattern_guide.md`의 테스트 작성 패턴 기준으로 실패 테스트 작성
 - 테스트 인프라 신규 도입이 필요하면 사용자 승인 대상으로 표시
 ---
 ```
