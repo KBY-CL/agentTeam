@@ -18,7 +18,7 @@ Audit Mode에서는 source/config 파일을 수정하지 않습니다.
 4. context budget 검사
 5. Step 7A Static Smoke 실행
 6. Drift Detection 수행
-7. Project-Aware TDD Gate drift 확인
+7. Project-Aware TDD Gate 및 Test Pattern Guide drift 확인
 8. `.agent-team/audit_report_{timestamp}.md` 작성
 
 ## 필수 포함 사항
@@ -29,6 +29,7 @@ Audit Report에는 반드시 아래 섹션이 있어야 합니다.
 - `Checked Files`
 - `No-write Guarantee`
 - `TDD Gate Status`
+- `Test Pattern Guide Status`
 
 ## 금지 사항
 

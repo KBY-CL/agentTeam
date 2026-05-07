@@ -9,7 +9,8 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 2. .agent-team/02_interview_result.md
 3. references/checklists/context-budget.md (이 단계에서 함께 로드)
 4. references/policies/tdd-first.md (이 단계에서 함께 로드)
-5. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
+5. references/policies/test-pattern-guide.md (이 단계에서 함께 로드)
+6. references/policies/tasklist-handoff.md (이 단계에서 함께 로드)
 
 ## 체크리스트
 
@@ -34,10 +35,12 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 
 **[Project-Aware TDD]**
 □ 01_project_analysis.md의 Test Environment Profile이 설계에 반영됨
-□ 개발 요청 흐름에 Acceptance Criteria → Failing Test → Red Verification → Minimal Implementation → Green Verification 순서가 있음
+□ `.agent-team/test_pattern_guide.md`가 테스트 전략·Red/Green 검증의 필수 참조로 반영됨
+□ 개발 요청 흐름에 Acceptance Criteria → Test Pattern Guide 확인 → Test Strategy → Failing Test → Red Verification → Minimal Implementation → Green Verification 순서가 있음
 □ Implementation Agent가 Red Verifier `[PASS]` 없이 production code를 수정하지 못하도록 명시됨
 □ Red 실패 원인이 기능 미구현인지 검증하는 조건이 있음
 □ Green 검증이 프로젝트의 실제 test/CI command 기준으로 연결됨
+□ 테스트 작성 패턴(naming, fixture/mock/factory, test command)이 설계에 요약됨
 □ 새 테스트 프레임워크·테스트 구조·CI 변경은 사용자 승인 대상으로 표시됨
 
 **[기능 설계 에이전트]**
@@ -50,7 +53,7 @@ context-budget.md 체크리스트도 이 단계에서 함께 적용.
 □ implementation tasklist 생성자, 검토자, 소비자가 명확히 구분됨
 □ tasklist 승인 전 implementation-agent가 production code를 수정하지 못하도록 명시됨
 □ implementation-agent의 기본 입력이 승인된 tasklist 중심으로 제한됨
-□ tasklist에 owner, depends_on, files, done_when, test command가 포함되도록 설계됨
+□ tasklist에 owner, depends_on, files, done_when, test command, test pattern guide source가 포함되도록 설계됨
 □ tasklist 밖 파일 수정/순서 변경/범위 확장이 verifier 또는 사용자 승인 대상으로 표시됨
 
 **[근거 매트릭스]**

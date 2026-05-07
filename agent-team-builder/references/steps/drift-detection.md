@@ -7,8 +7,9 @@ subagent_type: general-purpose / model: sonnet
 ## 입력 (Selective Read)
 1. 최신 설계서 `.agent-team/03_agent_design_spec_v*.md` (가장 높은 버전)
 2. `.agent-team/registry.json` (있는 경우)
-3. `.claude/agents/*.md` — frontmatter + description만 확인 (각 30줄 이내)
-4. `.claude/settings.json`
+3. `.agent-team/test_pattern_guide.md`
+4. `.claude/agents/*.md` — frontmatter + description만 확인 (각 30줄 이내)
+5. `.claude/settings.json`
 
 ## 탐지 항목
 
@@ -27,6 +28,11 @@ subagent_type: general-purpose / model: sonnet
 **[보안 drift]**
 □ shared-rules.md가 설계서의 보안 프로필을 여전히 반영하는가
 □ doc-updater 호출 조건이 구현 에이전트 본문에 남아있는가
+
+**[TDD/Test Pattern drift]**
+□ `.agent-team/test_pattern_guide.md`가 존재하고 registry의 development_methodology에 기록되어 있는가
+□ tdd-workflow, shared-rules, tasklist template이 Test Pattern Guide를 참조하는가
+□ Red/Green gate가 Test Pattern Guide 확인 이후에 실행되도록 남아있는가
 
 **[hooks drift]**
 □ settings.json hooks가 설계서와 일치하는가

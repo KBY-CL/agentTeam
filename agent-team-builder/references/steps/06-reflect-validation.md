@@ -10,13 +10,15 @@ subagent_type: general-purpose / model: opus
 2. 최신 승인 설계서 — 설계 의도 파악
 3. references/checklists/context-budget.md
 4. references/policies/tdd-first.md
-5. references/policies/tasklist-handoff.md
-6. CLAUDE.md, AGENTS.md, .claude/settings.json
-7. .claude/agents/_common/shared-rules.md
-8. .claude/skills/_common/tasklist-handoff/SKILL.md
-9. .claude/skills/_common/tdd-workflow/SKILL.md
-10. .claude/agents/request-intake-agent.md
-11. 나머지 agent 파일: implementation_log에 기재된 파일만, 각 50줄 이하로 frontmatter + description 위주 확인
+5. references/policies/test-pattern-guide.md
+6. references/policies/tasklist-handoff.md
+7. .agent-team/test_pattern_guide.md
+8. CLAUDE.md, AGENTS.md, .claude/settings.json
+9. .claude/agents/_common/shared-rules.md
+10. .claude/skills/_common/tasklist-handoff/SKILL.md
+11. .claude/skills/_common/tdd-workflow/SKILL.md
+12. .claude/agents/request-intake-agent.md
+13. 나머지 agent 파일: implementation_log에 기재된 파일만, 각 50줄 이하로 frontmatter + description 위주 확인
    - 전체 내용이 필요한 경우에만 해당 파일 전체 Read
 
 ## 체크리스트
@@ -27,6 +29,7 @@ subagent_type: general-purpose / model: opus
 □ tasklist-handoff/SKILL.md 존재
 □ tdd-workflow/SKILL.md 존재
 □ doc-updater/SKILL.md 존재
+□ .agent-team/test_pattern_guide.md 존재
 □ 공통·개별 스킬·hook 모두 생성
 □ .agent-team/backups/ 존재 (기존 파일 수정 시)
 
@@ -41,11 +44,14 @@ subagent_type: general-purpose / model: opus
 □ CLAUDE.md가 @AGENTS.md import
 □ settings.json hooks 중복 없음
 □ request-intake-agent가 선택지 기반 인터뷰·handoff 구조 보유
+□ request-intake-agent가 Test Environment Profile과 Test Pattern Guide 경로를 참조
 □ Q6(자동화 금지) 항목이 forbidden에 반영
 □ feature-architect-agent가 있으면 기능 설계 산출물 파일명 확인 규칙을 보유
 □ feature-architect-agent가 agent team topology/config 직접 변경 금지를 명시
 □ feature-architect-agent가 implementation tasklist 생성 책임을 명시
+□ feature-architect-agent가 테스트 전략 전에 `.agent-team/test_pattern_guide.md`를 확인하도록 명시
 □ implementation-agent가 있으면 승인된 tasklist를 기본 입력으로 사용하도록 명시
+□ implementation-agent가 `.agent-team/test_pattern_guide.md`와 tasklist의 테스트 명령·패턴을 기본 근거로 사용하도록 명시
 □ implementation-agent가 전체 설계서/인터뷰/긴 검증 로그를 기본 입력으로 받지 않도록 명시
 
 **[skills: frontmatter]**
@@ -57,6 +63,7 @@ subagent_type: general-purpose / model: opus
 **[Tasklist Handoff 구현]**
 □ tasklist 생성자(feature-architect-agent), 검토자, 소비자(implementation-agent)가 구분됨
 □ tasklist template에 Source / Global Rules / Tasks / Test Commands / Approval이 있음
+□ Source에 test pattern guide 경로가 포함됨
 □ 각 task에 owner, depends_on, files, done_when이 요구됨
 □ tasklist 승인 전 production code 수정 금지가 명시됨
 □ tasklist 밖 파일 수정, 순서 변경, 범위 확장이 승인 대상으로 명시됨
@@ -64,6 +71,8 @@ subagent_type: general-purpose / model: opus
 **[Project-Aware TDD 구현]**
 □ shared-rules.md에 Red 검증 전 production code 수정 금지 규칙이 있음
 □ 개발 담당 agent가 기존 테스트 관례와 Test Environment Profile을 먼저 확인하도록 되어 있음
+□ tdd-workflow가 Test Pattern Guide를 확인하고 confidence low/문서 없음이면 구현 전 재조사 또는 사용자 확인을 요구함
+□ Red Verifier가 실패 테스트의 패턴 준수 여부를 확인하도록 되어 있음
 □ Red Verifier `[PASS]` 없이는 implementation이 시작되지 않는 handoff 구조인가
 □ Red 실패 원인이 기능 미구현인지 확인하는 조건이 있음
 □ Green 검증이 프로젝트의 실제 test/CI command 기준으로 명시됨

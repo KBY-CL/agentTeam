@@ -24,6 +24,16 @@ Step 1은 아래 항목을 `.agent-team/01_project_analysis.md`에 기록해야 
 - coverage 또는 CI gate 여부
 - 테스트 인프라 부재 여부와 신규 도입 필요성
 
+## Test Pattern Guide
+
+Step 1은 `.agent-team/test_pattern_guide.md`를 생성해야 합니다. 이 문서는 테스트 환경을 넘어 실제 테스트 코드 작성 방식까지 기록합니다.
+
+- production-to-test 파일 매핑, naming convention, assertion style
+- fixture/mock/factory/test database 사용 방식
+- focused red command, related green command, full regression command
+- copyable test skeletons
+- 불확실한 패턴과 사용자 승인 필요한 dependency/config/CI 변경
+
 ## Required TDD Gate
 
 개발 요청을 처리하는 agent 흐름에는 아래 gate가 있어야 합니다.
@@ -31,6 +41,7 @@ Step 1은 아래 항목을 `.agent-team/01_project_analysis.md`에 기록해야 
 ```text
 Request Intake
 → Acceptance Criteria
+→ Test Pattern Guide 확인
 → Test Strategy
 → Failing Test 작성
 → Red Verification
@@ -47,6 +58,7 @@ Request Intake
 
 - Request Intake Agent는 요구사항, 영향 범위, 수용 기준, 관련 테스트 범위를 정리합니다.
 - Test Strategy 또는 Test Writer 책임자는 기존 프로젝트 관례에 맞는 실패 테스트를 먼저 작성합니다.
+- Test Strategy 또는 Test Writer 책임자는 실패 테스트 작성 전에 `.agent-team/test_pattern_guide.md`를 확인하고 적용한 패턴을 handoff에 기록합니다.
 - Red Verifier는 새 테스트가 실패하는지와 실패 이유가 올바른지 확인합니다.
 - Implementation Agent는 Red Verifier의 `[PASS]` 없이는 production code를 수정하지 않습니다.
 - Implementation Agent는 승인된 implementation tasklist 없이는 production code를 수정하지 않습니다.
@@ -60,9 +72,10 @@ Request Intake
 테스트 인프라가 없거나 실행 명령을 식별할 수 없으면 다음 순서를 따릅니다.
 
 1. 현재 프로젝트에 테스트 도입 흔적이 없는지 재확인합니다.
-2. 언어와 프레임워크 기준의 최소 테스트 도입안을 제안합니다.
-3. 사용자 승인 전에는 dependency 추가, 설정 파일 생성, CI 변경을 하지 않습니다.
-4. 승인되면 최소 테스트 harness부터 추가하고 첫 failing test를 작성합니다.
+2. `.agent-team/test_pattern_guide.md`에 "테스트 인프라 없음"과 확인한 근거를 기록합니다.
+3. 언어와 프레임워크 기준의 최소 테스트 도입안을 제안합니다.
+4. 사용자 승인 전에는 dependency 추가, 설정 파일 생성, CI 변경을 하지 않습니다.
+5. 승인되면 최소 테스트 harness부터 추가하고 첫 failing test를 작성합니다.
 
 ## Validation Requirements
 
@@ -70,6 +83,7 @@ Step 4와 Step 6은 아래 항목을 검증해야 합니다.
 
 - 설계서 또는 agent 파일에 Project-Aware TDD Gate가 있는가
 - Test Environment Profile이 설계와 구현에 반영되었는가
+- Test Pattern Guide가 생성되고 설계·tasklist·agent 파일에 참조되었는가
 - 기존 테스트 관례를 우선하도록 명시되어 있는가
 - Red Verifier 승인 없이 implementation이 시작되지 않는가
 - Red 실패 원인 검증 조건이 있는가
