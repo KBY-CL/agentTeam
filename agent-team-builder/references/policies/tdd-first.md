@@ -23,6 +23,7 @@ Step 1은 아래 항목을 `.agent-team/01_project_analysis.md`에 기록해야 
 - mock, fixture, factory, test database 사용 방식
 - coverage 또는 CI gate 여부
 - 테스트 인프라 부재 여부와 신규 도입 필요성
+- Docker 가용성 및 TestContainers 사용 가능 여부
 
 ## Test Pattern Guide
 
@@ -54,6 +55,19 @@ Request Intake
 
 소규모 팀에서는 여러 책임을 한 agent가 맡을 수 있지만, handoff와 출력 계약에는 Red/Green gate가 명확히 분리되어야 합니다.
 
+## Integration Test And Docker Policy
+
+통합 테스트는 실제 DB 또는 외부 시스템에 의존하므로 환경 가용성에 따라 조건부로 실행합니다.
+
+- 통합 테스트는 TestContainers를 사용합니다. H2 인메모리 DB를 통합 테스트 대체재로 사용하지 않습니다.
+- Docker가 설치된 환경에서만 통합 테스트를 실행합니다. Docker 미설치 환경에서는 통합 테스트를 skip하고 단위 테스트만 실행합니다.
+- 통합 테스트 클래스에는 `@Tag("integration")` 어노테이션을 필수로 붙입니다.
+- GREEN 검증 명령은 Docker 가용성을 기준으로 분기합니다:
+  - Docker 있음: 통합 테스트 포함 전체 실행
+  - Docker 없음: 단위 테스트만 실행 (`excludedGroups=integration` 또는 동등한 옵션)
+- Step 1의 Test Environment Profile에 Docker 가용성과 TestContainers 사용 여부를 기록합니다.
+- 프로젝트별 DB 이미지(Oracle, PostgreSQL, MySQL 등)는 Test Pattern Guide에 명시합니다.
+
 ## Agent Responsibility Rules
 
 - Request Intake Agent는 요구사항, 영향 범위, 수용 기준, 관련 테스트 범위를 정리합니다.
@@ -63,7 +77,7 @@ Request Intake
 - Implementation Agent는 Red Verifier의 `[PASS]` 없이는 production code를 수정하지 않습니다.
 - Implementation Agent는 승인된 implementation tasklist 없이는 production code를 수정하지 않습니다.
 - Implementation Agent는 테스트를 통과시키는 최소 변경만 수행합니다.
-- Green Verifier는 관련 테스트와 필요한 회귀 테스트를 실행합니다.
+- Green Verifier는 Docker 가용성을 확인하고 해당 환경에 맞는 명령으로 관련 테스트와 회귀 테스트를 실행합니다.
 - Refactor는 Green 이후에만 수행하며, refactor 이후 관련 테스트를 다시 실행합니다.
 - doc-updater는 기능 개발 완료 후에만 호출합니다.
 
@@ -87,5 +101,7 @@ Step 4와 Step 6은 아래 항목을 검증해야 합니다.
 - 기존 테스트 관례를 우선하도록 명시되어 있는가
 - Red Verifier 승인 없이 implementation이 시작되지 않는가
 - Red 실패 원인 검증 조건이 있는가
-- Green 검증 명령이 프로젝트의 실제 명령과 연결되어 있는가
+- Green 검증 명령이 Docker 가용성 기반으로 분기되어 있는가
+- 통합 테스트에 `@Tag("integration")`이 명시되어 있는가
+- H2 인메모리를 통합 테스트 대체재로 사용하지 않는가
 - 테스트 인프라 신규 도입이 사용자 승인 대상으로 표시되어 있는가
